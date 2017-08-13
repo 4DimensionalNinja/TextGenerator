@@ -4,6 +4,7 @@ inputPath = 'input.txt'
 outputPath = 'bbrett_output.txt'
 l = 50
 listOut = []
+k = 0
 
 def simplifyWord(wordIn):
     wordOut = wordIn.lower()
@@ -11,6 +12,18 @@ def simplifyWord(wordIn):
     wordOut = wordOut.lstrip(',;.:([\"')
 
     return wordOut
+
+def simplifyWordPart(wordIn):
+    wordOut = wordIn.lower()
+    wordOut = wordOut.rstrip(')]\"')
+    wordOut = wordOut.lstrip('([\"')
+    
+    return wordOut
+
+def countEndPunct(wordIn):
+    if wordIn.endswith((',' , ';' , '.' , ':')):
+        return 1
+    return 0
 
 inputFile = open(inputPath, 'r')
 outputFile = open(outputPath, 'w')
@@ -20,8 +33,14 @@ inputFile.close()
 
 corpus = fullText.split()
 
-for i in range(len(corpus)):
-    corpus[i] = simplifyWord(corpus[i])
+while k < len(corpus):
+    current = k
+    n = countEndPunct(corpus[current])
+    if n > 0:
+        corpus.insert(k+1, corpus[current][-n])
+        k += 1
+    corpus[current] = simplifyWord(corpus[i])
+    k += 1
 
 while(len(listOut) < 3):
     listOut.append(random.choice(corpus))
