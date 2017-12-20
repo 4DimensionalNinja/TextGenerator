@@ -1,27 +1,26 @@
 import random,re
+from bb_FileWords import FileWords
 
-inputPath = 'input.txt'
+inputPath = 'input'
 outputPath = 'bbrett_output.txt'
+
+def fileAllowed(file):
+    """Determines which scanned files will be processed"""
+    if file.is_file() and file.name.lower().endswith('.txt'):
+        return True
+    else:
+        return False
+
+
 l = 50
 listOut = []
 
-def simplifyWord(wordIn):
-    wordOut = wordIn.lower()
-    wordOut = wordOut.rstrip(',;.:)]\"')
-    wordOut = wordOut.lstrip(',;.:([\"')
-
-    return wordOut
-
-inputFile = open(inputPath, 'r')
 outputFile = open(outputPath, 'w')
 
-fullText = inputFile.read()
-inputFile.close()
-
-corpus = fullText.split()
-
-for i in range(len(corpus)):
-    corpus[i] = simplifyWord(corpus[i])
+with os.scandir(inputPath) as l:
+    for n in l:
+        if n.is_file() and fileAllowed(n):
+            fileList.append(FileWords(n.path))
 
 while(len(listOut) < 3):
     listOut.append(random.choice(corpus))
