@@ -11,20 +11,13 @@ def simplifyWord(wordIn):
     return wordOut
 
 def processText(text):
-    """Takes a string of text and returns a dictionary of all words it contains
-    and their counts"""
+    """Takes a string of text and returns a list of words"""
     wordList = text.split()
     listOut = {}
     for i in range(len(wordList)):
         wordList[i] = simplifyWord(wordList[i])
 
-    for j in range(len(wordList)):
-        if wordList[j] in listOut:
-            listOut[wordList[j]] += 1
-        else:
-            listOut[wordList[j]] = 1
-
-    return listOut
+    return wordList
 
 class FileWords:
     """Stores the path of the file and a dictionary of all the words in that
