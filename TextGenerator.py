@@ -22,6 +22,10 @@ with os.scandir(inputPath) as l:
         if n.is_file() and fileAllowed(n):
             fileList.append(FileWords(n.path))
 
+for k in fileList:
+    k.createWordsFromTxt()
+    corpus += k.m_words
+
 while(len(listOut) < 3):
     listOut.append(random.choice(corpus))
 
